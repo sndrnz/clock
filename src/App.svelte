@@ -1,65 +1,7 @@
 <script lang="ts">
-  import { fly } from "svelte/transition";
-  import { linear } from "svelte/easing";
-  import { readable } from "svelte/store";
-  import Digit from "./components/Digit.svelte";
-
-  type TimeDigits = {
-    [key in "seconds" | "minutes" | "hours"]: {
-      one: number;
-      ten: number;
-    };
-  };
-
-  const timer = readable(new Date(), (set) => {
-    setInterval(() => {
-      const date = new Date();
-
-      set(new Date());
-    }, 100);
-  });
-
-  $: digits = timeDigits($timer);
-  function timeDigits(date: Date): TimeDigits {
-    const seconds = date.getSeconds();
-    const minutes = date.getMinutes();
-    const hours = date.getHours();
-
-    const secondsTen = Math.floor(seconds / 10);
-    const secondsOne = seconds - secondsTen * 10;
-
-    const minutesTen = Math.floor(minutes / 10);
-    const minutesOne = minutes - minutesTen * 10;
-
-    const hoursTen = Math.floor(hours / 10);
-    const hoursOne = hours - hoursTen * 10;
-
-    return {
-      seconds: {
-        one: secondsOne,
-        ten: secondsTen,
-      },
-      minutes: {
-        one: minutesOne,
-        ten: minutesTen,
-      },
-      hours: {
-        one: hoursOne,
-        ten: hoursTen,
-      },
-    };
-  }
+  import Clock from "./components/Clock.svelte";
 </script>
 
-<div
-  class="flex h-screen flex-row-reverse items-center justify-center gap-2 bg-main"
->
-  <Digit digit={digits.seconds.one} />
-  <Digit digit={digits.seconds.ten} />
-  <div class="text-6xl text-white">:</div>
-  <Digit digit={digits.minutes.one} />
-  <Digit digit={digits.minutes.ten} />
-  <div class="text-6xl text-white">:</div>
-  <Digit digit={digits.hours.one} />
-  <Digit digit={digits.hours.ten} />
+<div class="flex h-screen items-center justify-center bg-main">
+  <Clock />
 </div>

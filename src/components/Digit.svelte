@@ -8,7 +8,7 @@
 </script>
 
 <div
-  class="relative h-48 w-36 overflow-hidden rounded-2xl"
+  class="relative h-48 min-w-[9rem] flex-shrink-0 overflow-hidden rounded-2xl"
   bind:this={digitContainer}
 >
   {#key digit}
